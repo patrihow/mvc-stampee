@@ -1,0 +1,95 @@
+/* Contenedor principal de la galería */
+.contenu-galerie {
+    display: flex;
+    justify-content: center;
+    padding: var(--spacing-thinner) var(--spacing-thinnest);
+}
+
+/* Galería del producto */
+.galerie-produit {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 0; 
+    flex-shrink: 0; 
+    flex-basis: 50%; 
+}
+
+.image-principale {
+    position: relative;
+    margin-bottom: var(--spacing-thinnest);
+}
+
+.image-produit {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Botón de zoom */
+.zoom-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(255, 255, 255, 0.7);
+    border: none;
+    border-radius: var(--radius-sharp);
+    padding: var(--spacing-nano);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Miniaturas de imágenes */
+.miniatures {
+    display: flex;
+    gap: var(--spacing-thinner);
+    justify-content: center;
+}
+
+.miniature {
+    width: 100px;
+    height: auto;
+    border: 1px solid var(--color-border-line);
+    border-radius: var(--radius-sharp);
+    transition: transform 0.2s;
+    cursor: pointer;
+    padding: var(--spacing-micro);
+}
+
+.miniature:hover {
+    transform: scale(1.1);
+}
+
+/* Detalles del producto */
+.details-produit {
+    flex: 0 0 40%;
+    display: flex;
+    flex-direction: column;
+    color: var(--color-bleu-royal);
+}
+
+.details-produit header {
+    border-bottom: var(--border-slimmest) solid var(--color-border-line);
+    padding-bottom: var(--spacing-thinner);
+}
+
+/* Títulos y textos */
+.details-produit h1 {
+    text-transform: uppercase;
+    font-family: var(--font-accent);
+    font-size: var(--font-tall);
+    margin-bottom: var(--spacing-nano);
+
+}
+
+.details-produit p {
+    margin-top: 0;
+    margin-bottom: var(--spacing-small);
+    font-size: var(--font-shorter);
+}
+
+/* Acciones */
+.actions {
+    display: flex;
+    gap: var(--spacing-nano);
+}

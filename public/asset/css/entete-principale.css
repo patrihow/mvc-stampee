@@ -1,0 +1,30 @@
+.entete-principal {
+    min-height: 60dvh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    mix-blend-mode: multiply;
+    position: relative;
+}
+
+.entete-principal>img {
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    mix-blend-mode: multiply;
+    object-fit: cover;
+}
+
+.entete-principal>img>h1 {
+    color: var(--color-fond-clair);
+}
+
+.entete-principal {
+    background-color: var(color-bleu-royal);
+    font-weight: 400;
+    font-size: var(--font-taller);
+    text-align: center;
+}
+

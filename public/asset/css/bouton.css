@@ -1,0 +1,76 @@
+.bouton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  border-radius: var(--radius-sharp);
+  padding: 0.75rem 1rem;
+  transition: all 0.15s cubic-bezier(0.39, 0.58, 0.57, 1);
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.btn-primaire {
+  background-color: var(--color-bleu-royal);
+  color: var(--color-nav-background);
+  border: none;
+}
+
+.btn-primaire:hover {
+  background-color: var(--color-bleu-clair);
+}
+
+.btn-secondaire {
+  background-color: transparent;
+  color: var(--color-bleu-clair);
+  border: 2px solid var(--color-accent-dore);
+  margin-bottom: 1rem;
+}
+
+.btn-secondaire:hover {
+  background-color: var(--color-accent-dore);
+  color: var(--color-nav-background);
+}
+
+/* === BUTTON SIZES === */
+.btn-petit {
+  background-color: white;
+  padding: var(--spacing-micro);
+  font-size: var(--font-shortest);
+}
+
+.btn-moyen {
+  padding: var(--spacing-thinner);
+  font-size: var(--font-current);
+}
+
+.btn-grand {
+  background-color: var(--color-bleu-clair);
+  color: white;
+  padding: var(--spacing-small);
+  font-size: var(--font-tall);
+}
+
+/* === LOGIN BUTTON === */
+.btn-login {
+  background-color: var(--color-bleu-royal);
+  color: white;
+  padding: var(--spacing-thinner);
+  font-size: var(--font-current);
+}
+
+/* === CARTES BUTTON === */
+.btn-cartes {
+  background-color: var(--color-accent-dore);
+  color: white;
+  padding: var(--spacing-thinner);
+  font-size: var(--font-current);
+}
+
+.btn-login:hover,
+.btn-cartes:hover {
+  background-color: var(--color-bleu-clair);
+}

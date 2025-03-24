@@ -1,0 +1,11 @@
+.contenu-principal>* {
+	margin-left: var(--spacing-thin);
+	margin-right: var(--spacing-thin);
+}
+.contenu-principal>header {
+    margin-left: 0;
+	margin-right: 0;
+}
+.contenu-principal>*+* {
+    margin-top: var(--spacing-broad);
+}

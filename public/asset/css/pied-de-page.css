@@ -1,0 +1,108 @@
+.pied-de-page {
+  background-color: white;
+  color: var(--couleur-texte);
+  padding: 2rem 0;
+  border-top: 1px solid var(--color-nav-plus-clair);
+}
+
+.conteneur {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+/* ========================= */
+/* Présentation Logo */
+/* ========================= */
+
+.presentation {
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: 0;
+  min-width: 250px;
+}
+
+.logo {
+  width: 120px;
+  display: block;
+  margin-bottom: var(--espacement);
+}
+
+.description {
+  font-size: var(--font-current);
+  font-weight: bold;
+  font-family: var(--font-accent);
+  color: var(--color-bleu-royal);
+}
+
+/* ========================= */
+/* Navigation (Liens rapides) */
+/* ========================= */
+
+.navigation {
+  display: flex;
+  flex-grow: 2;
+  flex-shrink: 1;
+  flex-basis: 0;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--espacement);
+}
+
+.bloc {
+  min-width: 150px;
+}
+
+.titre {
+  font-size: var(--font-current);
+  font-weight: bold;
+  margin-bottom: 0.8rem;
+  font-family: var(--font-accent);
+  text-transform: uppercase;
+  color: var(--color-accent-dore);
+}
+
+.liste {
+  list-style: none;
+}
+
+.lien {
+  text-decoration: none;
+  color: var(--color-texte-gris);
+  display: block;
+  padding: 0.3rem 0;
+  transition: color 0.3s ease-in-out;
+  font-size: var(--font-short);
+}
+
+.lien:hover {
+  color: var(--color-accent-dore);
+}
+
+/* ========================= */
+/* Section Légale (Copyright & Conditions) */
+/* ========================= */
+
+.section-legale {
+  text-align: center;
+  margin-top: 2rem;
+  padding-top: 1rem;
+}
+
+.copyright {
+  margin-bottom: 0.5rem;
+}
+
+.liens-legaux {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  font-size: var(--font-short);
+}
+
+.liens-legaux span {
+  color: var(--color-nav-clair);
+}

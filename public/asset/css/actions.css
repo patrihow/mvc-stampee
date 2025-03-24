@@ -1,0 +1,19 @@
+
+.actions {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-thin);
+    width: 100%;
+}
+
+.actions-secondaires {
+    display: flex;
+    gap: var(--spacing-thin);
+    justify-content: space-between; 
+    width: 100%;
+}
+
+.actions-secondaires .bouton {
+    flex: 1; 
+    min-width: 0; 
+}

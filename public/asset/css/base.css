@@ -1,0 +1,80 @@
+:root {
+  font-family: var(--font-base);
+  font-weight: 300;
+}
+
+*,
+*:before {
+  font-family: inherit;
+  font-weight: inherit;
+}
+
+body {
+  margin: 0;
+  background-color: var(--color-lien-fond-fonce);
+}
+
+body > footer {
+  margin-top: var(--spacing-thin);
+}
+
+nav * {
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+}
+
+nav a:active,
+button:active {
+  transform: translateY(1px) scale(0.98);
+}
+
+nav ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+p {
+  line-height: 1.6em;
+}
+
+strong {
+  font-weight: 600;
+}
+
+h1 {
+  font-family: var(--font-accent);
+  font-size: var(--font-tall);
+  margin-bottom: var(--spacing-thinner);
+}
+h3 {
+  font-family: var(--font-base);
+  font-size: var(--font-current);
+}
+
+h2 {
+  font-size: var(--font-shorter);
+  margin-bottom: var(--spacing-micro);
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+p {
+  margin-top: 0;
+  margin-bottom: var(--spacing-small);
+  font-size: var(--font-shorter);
+  color: var(--color-texte-gris);
+}
+.texte-small {
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: var(--font-shortest);
+  color: var(--color-texte-gris);
+}
+.prix {
+  color: var(--color-accent-dore);
+  font-family: var(--font-accent);
+  font-size: var(--font-tall);
+}

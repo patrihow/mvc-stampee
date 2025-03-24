@@ -1,0 +1,16 @@
+.enchere-estimation {
+  display: flex;
+  justify-content: space-between;
+  margin: var(--spacing-thinner) 0px;
+}
+
+.enchere-actuelle {
+  flex: 1;
+  border-right: 1px solid var(--color-border-line);
+  padding-right: var(--spacing-thinner);
+}
+
+.estimation {
+  flex: 1;
+  padding-left: var(--spacing-thinner);
+}

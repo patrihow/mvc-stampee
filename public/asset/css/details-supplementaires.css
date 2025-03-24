@@ -1,0 +1,82 @@
+
+.details-supplementaires {
+    max-width: 1200px;
+    margin: 2rem auto;
+}
+
+.details-supplementaires details {
+    background: var(--color-fond-clair);
+    padding: 1rem;
+    border-bottom: 1px solid var(--color-border-line);
+}
+
+.details-supplementaires summary {
+    font-size: var(--font-current);
+    text-transform: uppercase;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 1rem;
+    color: var( --color-texte);
+    transition: background 0.3s ease;
+    font-family: var(--font-accent);
+}
+
+.details-supplementaires summary:hover {
+    color: var(--color-bleu-clair);
+}
+
+.contenu-details {
+    padding: 0.5rem 0;
+    font-size: var(--font-current);
+    line-height: var(--line-height-tightest);
+}
+
+details[open] summary {
+    color: var( --color-texte);
+}
+
+.details-list {
+    list-style: none; 
+    font-size: var(--font-shorter);
+    color: var( --color-texte);
+}
+
+.details-list li {
+    margin-bottom: 0.5rem;
+}
+
+.details-list li strong {
+    font-weight: 600;
+    color: var( --color-texte);
+}
+/* Estilo para la flecha */
+.details-supplementaires summary {
+    font-size: var(--font-current);
+    text-transform: uppercase;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 1rem;
+    color: var(--color-bleu-royal);
+    transition: background 0.3s ease;
+    font-family: var(--font-accent);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.details-supplementaires summary i.fas {
+    margin-right: 10px; 
+}
+
+.details-supplementaires summary .arrow {
+    transition: transform 0.3s ease;
+}
+
+details[open] summary .arrow {
+    transform: rotate(90deg); 
+}
+
+.details-supplementaires summary:hover .arrow {
+    color: var(--color-bleu-clair);
+}
+

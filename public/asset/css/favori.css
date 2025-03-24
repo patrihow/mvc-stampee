@@ -1,0 +1,37 @@
+/* === FAVORITE ICON === */
+.favori {
+    position: absolute;
+    top: var(--spacing-micro);
+    right: var(--spacing-micro);
+    background: rgba(255, 255, 255, 0.9);
+    padding: var(--spacing-nano) var(--spacing-micro);
+    border-radius: var(--radius-sharp);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-nano);
+    font-size: var(--font-short);
+    font-weight: 600;
+    color: var(--color-accent-dore);
+    transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.favori i {
+    color: var(--color-accent-dore);
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.favori:hover {
+    background: var(--color-bleu-royal);
+    color: white;
+    transform: scale(1.05);
+}
+
+.favori:hover i {
+    color: white;
+    transform: scale(1.2);
+}
+
+.favori a {
+    text-decoration: none;
+    color: inherit;
+}

@@ -1,0 +1,21 @@
+.details-produits {
+    display: flex;
+    flex-direction: column;
+    color: var(--color-bleu-royal);
+    padding: var(--spacing-thinner) var(--spacing-thinnest);
+}
+
+.actions {
+    display: flex;
+    gap: var(--spacing-nano);
+    margin-top: var(--spacing-thinner);
+}
+
+footer p {
+    font-size: var(--font-shorter);
+    margin-top: var(--spacing-thinner);
+}
+
+footer a {
+    color: var(--color-bleu-clair);
+}
