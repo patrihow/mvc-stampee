@@ -18,7 +18,7 @@
             <input
               class="login-input"
               type="text"
-              id="name" placeholder="Entrez votre nom" value="{{user.name}}"/>
+              id="name" name="name" placeholder="Entrez votre nom" value="{{user.name}}"/>
               {% if errors.name is defined %}
               <span class="span-erreur"> {{errors.name}}</span>
                 {% endif %}
