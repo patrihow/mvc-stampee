@@ -1,0 +1,98 @@
+
+.tiroir.grid {
+	&>header {
+		display: flex;
+		align-items: center;
+	}
+
+	display: grid;
+	overflow: hidden;
+	grid-template-rows: auto 1fr;
+	transition: grid-template-rows 200ms ease-out;
+	align-content: start;
+
+	&>div {
+		min-height: 0;
+		box-sizing:border-box;
+		opacity: 1;
+		padding: 10px;
+		display: block;
+		transition: 200ms allow-discrete;
+		transition-property: display, opacity, padding;
+	}
+
+	&:not(:has(input[id=ouvrir]:checked)) {
+		grid-template-rows: auto 0fr;
+		&>div {
+			display: none;
+			opacity: 0;
+		}
+	}
+
+}
+
+.tiroir.maxheight {
+	&>header {
+		display: flex;
+		align-items: center;
+	}
+
+	&>div {
+		overflow: hidden;
+		max-height: 500px;
+		transition: max-height 200ms ease-out;
+
+		&>div {
+			opacity: 1;
+			transition: opacity 200ms;
+		}
+	}
+
+	&:not(:has(input[id=ouvrir]:checked)) {
+		&>div {
+			max-height: 0px;
+			&>div {
+				opacity: 0;
+			}
+		}
+	}
+
+}
+
+details {
+	background-color: transparent;
+
+	& > * {
+		padding: 10px;
+	}
+
+	& div {
+		display: grid;
+		grid-template-rows: 0fr;
+		overflow: hidden;
+		transition: grid-template-rows 400ms ease-out;
+	}
+
+
+	&[open] {
+		background-color: transparent;
+		& div {
+			grid-template-rows: 1fr;
+		}
+	}
+
+	& summary {
+		/* display: flex; */
+		position: relative;
+	}
+
+	& summary::marker,
+	& *::-webkit-details-marker {
+		content: "+";
+		font-family: monospace;
+		font-weight: bold;
+		position: absolute; 
+		right: 0;
+	}
+}
+

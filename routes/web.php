@@ -1,7 +1,7 @@
 <?php
 
 use App\Controllers\UserController;
-use App\Controllers\AuthController;
+// use App\Controllers\AuthController;
 use App\Routes\Route;
 
 Route::get('/user/create', 'userController@create');
