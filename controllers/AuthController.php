@@ -12,10 +12,11 @@ class AuthController
         return View::render('auth/login');
     }
 
-    public function store($data){
+    public function store($data)
+    {
         $validator = new Validator;
-        $validator->field('username', $data['username'])->min(2)->max(50);
-        $validator->field('password', $data['password'])->min(2)->max(20);
+        // $validator->field('username', $data['username'])->min(2)->max(50);
+        // $validator->field('password', $data['password'])->min(2)->max(20);
 
         if ($validator->isSuccess()) {
             $user      = new User;
@@ -32,7 +33,6 @@ class AuthController
         }
 
     }
-
 
     public function delete()
     {
