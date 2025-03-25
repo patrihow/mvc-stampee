@@ -1,11 +1,9 @@
-Projet : Stampee — Devis d’appel d’offre
+# 📌 Stampee - Plateforme d'enchères de timbres
 
-# Stampee - Plateforme d'enchères de timbres
-
-## Description du projet
+## 📖 Description du projet
 Stampee est une plateforme d’enchères de timbres développée pour Lord Reginald Stampee, duc de Worcestershire. L’objectif est de concevoir un site web moderne et accessible, permettant aux utilisateurs de publier et de participer à des enchères de timbres.
 
-### Technologies utilisées
+### 🚀 Technologies utilisées
 - **HTML** : Structure de la page
 - **CSS** : Style et mise en page
 - **JavaScript** : Interactions dynamiques
@@ -27,6 +25,7 @@ Stampee est une plateforme d’enchères de timbres développée pour Lord Regin
 ### 🏁 Sprint 1 - En cours
 - **Remise prévue** : Jeudi **27 mars 2025**
 - **Présentation client** : Vendredi **28 mars 2025**
+- 📂 **Branche active** : [dev-sprint1](https://github.com/patrihow/mvc-stampee/tree/dev-sprint1) _(Sprint 1 disponible sur cette branche)_
 
 ---
 
@@ -45,8 +44,8 @@ Stampee est une plateforme d’enchères de timbres développée pour Lord Regin
 
 ---
 ## 🏆 Autrice
- Créé et développé avec 💖 par [@patrihow](https://github.com/patrihow)
+Créé et développé avec 💖 par [@patrihow](https://github.com/patrihow)
+
 ---
 
 📌 _Dernière mise à jour : 25 mars 2025_
-
