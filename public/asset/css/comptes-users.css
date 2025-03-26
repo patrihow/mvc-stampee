@@ -1,6 +1,5 @@
 .comptes-users {
-  padding: var(--spacing-large);
-  background-color: var(--color-fond-clair);
+  padding: var(--spacing-broad);
   border-radius: var(--radius-sharp);
 }
 
@@ -23,6 +22,7 @@
 .options-users p {
   font-size: var(--font-current);
   color: var(--color-texte);
+  padding-bottom: var(--spacing-micro);
 }
 
 @media (max-width: 768px) {
