@@ -1,5 +1,4 @@
 # 📮 Stampee - Plateforme d'enchères de timbres
-![Logo de Stampee](public/assets/images/logo-stampee.png)
 
 ## 📖 Description du projet
 
