@@ -33,7 +33,7 @@
 
 
     <label for="tirage">Tirage</label>
-    <input class="login-input" type="text" id="tirage" name="tirage" placeholder="Entrez le tirage du timbre" min="0" step="0.01" value="{{stamp.tirage}}"/>
+    <input class="login-input" type="text" id="tirage" name="tirage" placeholder="Entrez le nombre d'exemplaires imprimés" min="0" step="0.01" value="{{stamp.tirage}}"/>
     {% if errors.tirage is defined %}
     <span class="span-erreur"> {{errors.tirage}}</span>
     {% endif %}

@@ -45,28 +45,32 @@ class Validator
         return $this;
     }
 
-    public function uppercase(){
-        if(!empty($this->value) && !preg_match('/[A-Z]/', $this->value)){  
-            $this->errors[$this->key]="$this->name ne contient pas de majuscule!";
+    public function uppercase()
+    {
+        if (! empty($this->value) && ! preg_match('/[A-Z]/', $this->value)) {
+            $this->errors[$this->key] = "$this->name ne contient pas de majuscule!";
         }
-        return $this;	    
+        return $this;
     }
-    public function lowercase(){
-        if(!empty($this->value) && !preg_match('/[a-z]/', $this->value)){  
-            $this->errors[$this->key]="$this->name ne contient pas de miniscule!";
+    public function lowercase()
+    {
+        if (! empty($this->value) && ! preg_match('/[a-z]/', $this->value)) {
+            $this->errors[$this->key] = "$this->name ne contient pas de miniscule!";
         }
-        return $this;	    
-    }
-
-    public function countainNumber(){
-        if(!empty($this->value) && !preg_match('/[0-9]/', $this->value)){  
-            $this->errors[$this->key]="$this->name ne contient pas de miniscule!";
-        }
-        return $this;	    
+        return $this;
     }
 
-    public function specialChars(){
-        if (!empty($this->value) && !preg_match('/[\@#\$%\^&\*\-_\+=\[\]{};,.]/', $this->value)) {  
+    public function countainNumber()
+    {
+        if (! empty($this->value) && ! preg_match('/[0-9]/', $this->value)) {
+            $this->errors[$this->key] = "$this->name ne contient pas de miniscule!";
+        }
+        return $this;
+    }
+
+    public function specialChars()
+    {
+        if (! empty($this->value) && ! preg_match('/[\@#\$%\^&\*\-_\+=\[\]{};,.]/', $this->value)) {
             $this->errors[$this->key] = "$this->name doit contenir au moins un caractère spécial !";
         }
         return $this;
@@ -113,6 +117,25 @@ class Validator
             return $this->errors;
         }
 
+    }
+
+    // -- Validateur pour valider l'année
+
+    public function inRange($min, $max)
+    {
+        if (! empty($this->value) && ($this->value < $min || $this->value > $max)) {
+            $this->errors[$this->key] = "$this->name doit être entre $min et $max.";
+        }
+        return $this;
+    }
+
+    // Vérifie si la valeur n'est pas définie ou si elle est égale à la chaîne "disabled".
+    public function notSelected()
+    {
+        if (! isset($this->value) || $this->value === "" || $this->value === "disabled") {
+            $this->errors[$this->key] = "$this->name est requis!";
+        }
+        return $this;
     }
 
 }

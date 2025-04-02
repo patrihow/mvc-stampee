@@ -80,3 +80,25 @@ select {
   appearance: none;
   cursor: pointer;
 }
+
+.login-form input[type="file"] {
+  padding: var(--spacing-nano);
+  margin-top: var(--spacing-micro);
+  border: 1px solid var(--color-border-line);
+  border-radius: var(--radius-sharp);
+  font-size: var(--font-current);
+  height: auto;
+}
+.login-form input[type="text"] {
+  padding: var(--spacing-nano);
+  margin-top: var(--spacing-micro);
+  border: 1px solid var(--color-border-line);
+  border-radius: var(--radius-sharp);
+  font-size: var(--font-current);
+  height: 45px;
+}
+.file-img {
+  display: flex;
+  flex-direction: column;
+  margin: var(--spacing-pico) var(--spacing-nano);
+}
