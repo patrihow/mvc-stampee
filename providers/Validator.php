@@ -138,4 +138,27 @@ class Validator
         return $this;
     }
 
+    // Règles de validation des images
+
+    public function validateFileRequired($file)
+    {
+        if ($_FILES[$file]["error"] == 4) {
+            $this->errors[$this->key] = "$this->name est obligatoire !";
+        }
+        return $this;
+    }
+
+    public function validateImageFormat($file)
+    {
+        if ($_FILES[$file]["error"] != 4) {
+
+            $fileExtension = strtolower(pathinfo($_FILES[$file]["name"], PATHINFO_EXTENSION));
+
+            if (! in_array($fileExtension, ['avif', 'webp', 'jpg', 'jpeg', 'png'])) {
+
+                $this->errors[$this->key] = "$this->name a un format invalide !";
+            }
+        }
+    }
+
 }
