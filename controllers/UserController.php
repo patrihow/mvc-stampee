@@ -24,7 +24,7 @@ class UserController
         if ($validator->isSuccess()) {
             $user                 = new User;
             $data['username']     = $data["email"];
-            $data["privilege_id"] = '0';
+            $data["privilege_id"] = '3';
             $data['password']     = $user->hashPassword($data['password'], 15);
             $insert               = $user->insert($data);
             if ($insert) {

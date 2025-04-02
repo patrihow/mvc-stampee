@@ -4,13 +4,16 @@ Définition des styles de couleur et de rythme
 ----------------------------------------------- */
 :root {
     /* --- Palette de couleur ---*/
-    --color-bleu-royal: #0F1A3A;
-    --color-bleu-clair: #26428B;
+    --color-bleu-royal: #11283A;
+    --color-bleu-clair: #346CA7;
     --color-bleu-plus-clair: #3951a8;
-    --color-accent-dore: #E3AF64;
+    --color-accent-dore: #DF9B6C;
+    --color-accent-dore-survol: #c17e4e;
+    --color-accent-dore-fonce: #522a0e;
     --color-beige-clair: #FAEBD6;
-    --color-fond-clair: #F8F7F5;
+    --color-fond-clair: #F3F3F3;
     --color-texte: #222;
+    --color-blanc: #fff;
 
     /* --- Liens ---*/
     --color-lien-fond-clair: #26428B;

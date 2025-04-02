@@ -17,3 +17,15 @@
   border-color: var(--color-bleu-royal);
   outline: none;
 }
+
+@media (max-width: 768px) {
+  .input-container {
+    flex-direction: column; 
+    gap: var(--spacing-nano); 
+}
+
+.input-prix {
+    width: 100%; 
+}
+
+}

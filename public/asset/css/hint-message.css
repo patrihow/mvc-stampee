@@ -1,0 +1,6 @@
+.hint-message {
+    color: var(--color-bleu-plus-clair);
+    font-size: var(--font-current);
+    padding: 8px 0 5px 0; 
+    font-weight: 600;
+}

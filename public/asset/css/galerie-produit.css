@@ -1,11 +1,10 @@
-/* Contenedor principal de la galería */
+
 .contenu-galerie {
     display: flex;
     justify-content: center;
     padding: var(--spacing-thinner) var(--spacing-thinnest);
 }
 
-/* Galería del producto */
 .galerie-produit {
     display: flex;
     flex-direction: column;
@@ -24,7 +23,6 @@
     height: auto;
 }
 
-/* Botón de zoom */
 .zoom-button {
     position: absolute;
     top: 10px;
@@ -39,7 +37,6 @@
     justify-content: center;
 }
 
-/* Miniaturas de imágenes */
 .miniatures {
     display: flex;
     gap: var(--spacing-thinner);
@@ -60,7 +57,6 @@
     transform: scale(1.1);
 }
 
-/* Detalles del producto */
 .details-produit {
     flex: 0 0 40%;
     display: flex;
@@ -73,7 +69,6 @@
     padding-bottom: var(--spacing-thinner);
 }
 
-/* Títulos y textos */
 .details-produit h1 {
     text-transform: uppercase;
     font-family: var(--font-accent);
@@ -88,8 +83,26 @@
     font-size: var(--font-shorter);
 }
 
-/* Acciones */
+/* Actions */
 .actions {
     display: flex;
     gap: var(--spacing-nano);
+    flex-direction: column;
+}
+
+@media (max-width: 768px) {
+    .contenu-galerie {
+        flex-direction: column; 
+        align-items: center; 
+    }
+
+    .galerie-produit .details-produits {
+        flex-basis: 100%;
+        margin: var(--spacing-thinner);
+    }
+
+    .actions {
+        flex-direction: column; 
+        gap: var(--spacing-nano); 
+    }
 }

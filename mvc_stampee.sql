@@ -135,3 +135,12 @@ CREATE TABLE favorite (
     FOREIGN KEY (user_id) REFERENCES user(id)
 );
 
+-- Insérer des données dans la table privilege
+
+INSERT INTO privilege (role) VALUES ('Admin');
+INSERT INTO privilege (role) VALUES ('Manager');
+INSERT INTO privilege (role) VALUES ('Membre');
+
+-- Demande de visualisation des tables
+select * FROM privilege;
+SELECT * FROM privilege WHERE id = 3;

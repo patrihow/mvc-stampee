@@ -1,0 +1,14 @@
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 3fr; 
+    gap: var(--spacing-thin); 
+  }
+  
+  @media (max-width: 768px) {
+    .grid-container {
+      grid-template-columns: 1fr; 
+    }
+    .filtres-encheres {
+      display: none; 
+    }
+  }

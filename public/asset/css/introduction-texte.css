@@ -1,0 +1,6 @@
+.introduction-texte {
+    font-size: var(--font-tall);
+    color: var(--color-lien-fond-clair);
+    margin-bottom: var(--spacing-thin);
+
+}
