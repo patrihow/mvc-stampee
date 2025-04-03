@@ -171,16 +171,16 @@ class StampController
 
         foreach ($fetchAllStamps as $key => $oneStamp) {
             $colorName                        = $color->selectId($oneStamp["color_id"]);
-            $fetchAllStamps[$key]["color_id"] = $colorName["color"];
+            $fetchAllStamps[$key]["color_id"] = $colorName["name"];
 
             $conditionsName                             = $conditions->selectId($oneStamp["stamp_condition_id"]);
-            $fetchAllStamps[$key]["stamp_condition_id"] = $colorName["stamp_condition"];
+            $fetchAllStamps[$key]["stamp_condition_id"] = $conditionsName["name"];
 
             $countryName                        = $country->selectId($oneStamp["country_id"]);
-            $fetchAllStamps[$key]["country_id"] = $countryName["country"];
+            $fetchAllStamps[$key]["country_id"] = $countryName["name"];
 
             $themeName                        = $theme->selectId($oneStamp["theme_id"]);
-            $fetchAllStamps[$key]["theme_id"] = $themeName["theme"];
+            $fetchAllStamps[$key]["theme_id"] = $themeName["name"];
         }
 
         return View::render('stamp/index', ['AllStamp' => $fetchAllStamps]);

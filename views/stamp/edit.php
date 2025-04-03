@@ -52,9 +52,22 @@
     <span class="span-erreur"> {{errors.height}}</span>
     {% endif %}
 
+    <label for="is_certified">Certification du timbre</label>
+    <select name="is_certified" id="is_certified">
+    <option value="disabled" {% if stamp.is_certified == null %} selected
+    {% endif %} disabled>Indiquer si certifie</option>
+    <option value="0" {% if stamp.is_certified == "0" %} selected {% endif %}>No</option>
+
+    <option value="1" {% if stamp.is_certified == "0" %} selected {% endif %}>Yes</option>
+</select>
+{% if errors.is_certified is defined %}
+    <span class="span-erreur"> {{errors.is_certified}}</span>
+    {% endif %}
+
+
     <label for="stamp_condition_id">Condition</label>
 <select name="stamp_condition_id" id="stamp_condition_id">
-    <option value="" {% if stamp.stamp_condition_id == null %} selected {% endif %} disabled>Indiquer l'état</option>
+    <option value="disabled" {% if stamp.stamp_condition_id == null %} selected {% endif %} disabled>Indiquer l'état</option>
     {% for stamp_condition in conditions %}
     <option value="{{ stamp_condition.id }}" {% if stamp.stamp_condition_id == stamp_condition.id %} selected {% endif %}>{{ stamp_condition.name }}</option>
     {% endfor %}
@@ -65,7 +78,7 @@
 
     <label for="theme_id">Thématique</label>
 <select name="theme_id" id="theme_id">
-    <option value="" {% if stamp.stamp_theme_id == null %} selected {% endif %} disabled>Indiquer le theme</option>
+    <option value="disabled" {% if stamp.stamp_theme_id == null %} selected {% endif %} disabled>Indiquer le theme</option>
     {% for theme in themes %}
     <option value="{{ theme.id }}" {% if stamp.theme_id == theme.id %} selected {% endif %}>{{ theme.name }}</option>
     {% endfor %}
@@ -76,7 +89,7 @@
 
     <label for="color_id">Couleur principale</label>
     <select name="color_id" id="color_id">
-        <option value="" {% if stamp.color_id == null %} selected {% endif %} disabled>Choisir la couleur</option>
+        <option value="disabled" {% if stamp.color_id == null %} selected {% endif %} disabled>Choisir la couleur</option>
         {% for color in colors %}
         <option value="{{color.id}}" {% if stamp.color_id == color.id %} selected {% endif %}>{{color.name}}</option>
         {% endfor %}
@@ -87,7 +100,7 @@
 
     <label for="country_id">Pay d'origine</label>
     <select name="country_id" id="country_id">
-        <option value="" {% if stamp.country_id == null %} selected {% endif %} disabled>Choisir le pays</option>
+        <option value="disabled" {% if stamp.country_id == null %} selected {% endif %} disabled>Choisir le pays</option>
         {% for country in countries %}
         <option value="{{country.id}}" {% if stamp.country_id == country.id %} selected {% endif %}>{{country.name}}</option>
         {% endfor %}
