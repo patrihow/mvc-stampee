@@ -24,7 +24,7 @@
 - 📂 **Dépôt GitHub - Backend (MVC)** : [Voir le dépôt](https://github.com/patrihow/mvc-stampee)
 - 📂 **Dépôt GitHub - Frontend (HTML/CSS)** : [Voir le dépôt](https://github.com/patrihow/stampee)
 - 🌍 **Version en ligne sur GitHub Pages** : [Accéder à Stampee](https://patrihow.github.io/stampee/)
-- 🌐 **Site web sur Webdev** : [www.webdev.com](http://www.webdev.com) *(en cours de déploiement)*
+- 🌐 **Site web sur Webdev** : https://e2496037.webdev.cmaisonneuve.qc.ca/mvc-stampee/
 
 ## 📅 Planification et avancement
 
