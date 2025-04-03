@@ -108,4 +108,25 @@ abstract class CRUD extends \PDO
             return false;
         }
     }
+
+    final public function fetchAllById($fieldID, $conditionField, $sortField = null, $sortOrder = 'ASC')
+{
+
+    if ($sortField === null) {
+        $sortField = $this->primaryKey;
+    }
+
+    $query  = "SELECT * FROM $this->table WHERE $conditionField = :fieldID ORDER BY $sortField $sortOrder";
+ 
+    $statement = $this->prepare($query);
+    
+
+    $statement->bindValue(":fieldID", $fieldID);
+    
+
+    $statement->execute();
+    
+
+    return $statement->fetchAll();
+}
 }

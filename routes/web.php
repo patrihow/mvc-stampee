@@ -15,6 +15,7 @@ Route::get('/stamp/create', 'StampController@create');
 Route::post('/stamp/create', 'StampController@store');
 Route::get('/stamp/create-image', 'StampController@createImage');
 Route::post('/stamp/create-image', 'StampController@storeCreateImage');
+Route::get('/stamp/index', 'StampController@index');
 
 Route::get('/login', 'AuthController@login');
 Route::post('/login', 'AuthController@store');

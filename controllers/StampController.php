@@ -104,11 +104,87 @@ class StampController
 
     public function storeCreateImage($data = [])
     {
+        $validator = new Validator;
 
-        echo('<pre>');
-        print_r($_FILES);
-        echo('</pre>');
-        die();
+        $validator->field('file_name', $_FILES['file_name'], "Image principale")
+            ->checkFileUploaded('file_name')
+            ->checkImageFormat('file_name')
+            ->checkIfImage('file_name')
+            ->checkFileSize('file_name');
 
+        if ($_FILES['second_file']['error'] == 0) {
+            $validator->field('second_file', $_FILES['second_file'], "Seconde image")
+                ->checkFileUploaded('second_file')
+                ->checkImageFormat('second_file')
+                ->checkIfImage('second_file')
+                ->checkFileSize('second_file');
+        }
+
+        if ($_FILES['third_file']['error'] == 0) {
+            $validator->field('third_file', $_FILES['third_file'], "Troisième image")
+                ->checkFileUploaded('third_file')
+                ->checkImageFormat('third_file')
+                ->checkIfImage('third_file')
+                ->checkFileSize('third_file');
+        }
+
+        if ($validator->isSuccess()) {
+
+            
+            
+            $this->uploadFile('file_name');
+            if ($_FILES['second_file']['error'] == 0) {
+                $this->uploadFile('second_file');
+            }
+            if ($_FILES['third_file']['error'] == 0) {
+                $this->uploadFile('third_file');
+            }
+
+            return View::redirect('stamp/index');
+        } else {
+
+            $errors = $validator->getErrors();
+            return View::render('stamp/create-image', ['errors' => $errors]);
+        }
+    }
+
+    private function uploadFile($file)
+    {
+        $targetDir  = __DIR__ . '/../public/uploads/';
+        $targetFile = $targetDir . basename($_FILES[$file]["name"]);
+        move_uploaded_file($_FILES[$file]["tmp_name"], $targetFile);
+    }
+
+    public function index()
+    {
+
+        // $stamp      = new Stamp;
+        // $color      = new Color;
+        // $conditions = new StampCondition;
+        // $country    = new Country;
+        // $theme      = new Theme;
+
+        // $fetchAllStamps = $stamp->fetchAllById($_SESSION['user_id'], "user_id", "id");
+
+        // foreach ($fetchAllStamps as $key => $oneStamp) {
+        //     $colorName                        = $color->selectId($oneStamp["color_id"]);
+        //     $fetchAllStamps[$key]["color_id"] = $colorName["color"];
+
+        //     $conditionsName                             = $conditions->selectId($oneStamp["stamp_condition_id"]);
+        //     $fetchAllStamps[$key]["stamp_condition_id"] = $colorName["stamp_condition"];
+
+        //     $countryName                        = $country->selectId($oneStamp["country_id"]);
+        //     $fetchAllStamps[$key]["country_id"] = $countryName["country"];
+
+        //     $themeName                        = $theme->selectId($oneStamp["theme_id"]);
+        //     $fetchAllStamps[$key]["theme_id"] = $themeName["theme"];
+        // }
+
+        return View::render('stamp/index');
     }
 }
+
+// echo('<pre>');
+// print_r($_FILES);
+// echo('</pre>');
+// die();

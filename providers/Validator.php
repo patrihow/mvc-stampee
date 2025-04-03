@@ -140,25 +140,58 @@ class Validator
 
     // Règles de validation des images
 
-    public function validateFileRequired($file)
+    public function checkFileUploaded($file)
     {
+
         if ($_FILES[$file]["error"] == 4) {
             $this->errors[$this->key] = "$this->name est obligatoire !";
         }
         return $this;
     }
 
-    public function validateImageFormat($file)
+    public function checkImageFormat($file)
     {
-        if ($_FILES[$file]["error"] != 4) {
+
+        if ($_FILES[$file]["error"] == 0) {
 
             $fileExtension = strtolower(pathinfo($_FILES[$file]["name"], PATHINFO_EXTENSION));
 
-            if (! in_array($fileExtension, ['avif', 'webp', 'jpg', 'jpeg', 'png'])) {
-
+            if (! in_array($fileExtension, ['jpg', 'jpeg', 'png', 'gif', 'webp'])) {
                 $this->errors[$this->key] = "$this->name a un format invalide !";
             }
+        } else {
+
+            $this->errors[$this->key] = "$this->name est requis !";
         }
+
+        return $this;
     }
+
+    public function checkIfImage($file)
+    {
+
+        if ($_FILES[$file]["error"] != 4) {
+
+            $check = getimagesize($_FILES[$file]["tmp_name"]);
+            if ($check === false) {
+                $this->errors[$this->key] = "$this->name n'est pas une image!";
+            }
+        }
+        return $this;
+    }
+
+    public function checkFileSize($file, $maxSize = 2000000)
+    {
+
+        if ($_FILES[$file]["error"] != 4) {
+
+            if ($_FILES[$file]["size"] < $maxSize) {
+                $this->errors[$this->key] = "$this->name est trop lourde!";
+            }
+        }
+        return $this;
+    }
+
+    
 
 }
