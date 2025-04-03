@@ -3,6 +3,7 @@ namespace App\Controllers;
 
 use App\Models\Color;
 use App\Models\Country;
+use App\Models\ImageToUpload;
 use App\Models\Stamp;
 use App\Models\StampCondition;
 use App\Models\Theme;
@@ -127,60 +128,88 @@ class StampController
                 ->checkIfImage('third_file')
                 ->checkFileSize('third_file');
         }
+        $idStampUser = $_SESSION['stampId'];
 
         if ($validator->isSuccess()) {
 
-            
-            
-            $this->uploadFile('file_name');
-            if ($_FILES['second_file']['error'] == 0) {
-                $this->uploadFile('second_file');
-            }
-            if ($_FILES['third_file']['error'] == 0) {
-                $this->uploadFile('third_file');
+            $position = 0;
+
+            $insertAllData = false;
+
+            foreach ($data as $oneData) {
+
+                if ($oneData != null) {
+                    $oneDataStore                = [];
+                    $oneDataStore["position"]    = $position;
+                    $oneDataStore["description"] = $oneData;
+                    $oneDataStore["stamp_id"]    = $idStampUser;
+                    $oneDataStore["file_name"]   = "";
+
+                    foreach ($_FILES as $oneFile => $fileInfos) {
+                        if ($fileInfos["error"] === 0) {
+                            $folderUpload = __DIR__ . '/../public/uploads/';
+                            $targetedFile = $folderUpload . basename($fileInfos["name"]);
+                            if (move_uploaded_file($fileInfos['temporal_name'], $targetedFile)) {
+                                $oneDataStore["file_name"] = basename($fileInfos["name"]);
+                            }
+                        }
+                    }
+
+                    $ImageToUpload = new ImageToUpload;
+                    $insertData    = $ImageToUpload->insert($oneDataStore);
+
+                    if ($insertData) {
+                        $insertAllData = true;
+
+                    } else {
+                        $insertAllData = false;
+                    }
+                    $position++;
+
+                }
             }
 
-            return View::redirect('stamp/index');
+            if ($insertAllData) {
+                $_SESSION['stampId'] = null;
+                return View::redirect('user/show');
+
+            } else {
+                return View::render('error', ['msg' => 'Les images n\'ont pas pu être chargées']);
+            }
+
         } else {
 
             $errors = $validator->getErrors();
-            return View::render('stamp/create-image', ['errors' => $errors]);
+            return View::render('stamp/create-image', ['errors' => $errors, 'description' => $data]);
         }
-    }
-
-    private function uploadFile($file)
-    {
-        $targetDir  = __DIR__ . '/../public/uploads/';
-        $targetFile = $targetDir . basename($_FILES[$file]["name"]);
-        move_uploaded_file($_FILES[$file]["tmp_name"], $targetFile);
     }
 
     public function index()
     {
 
-        // $stamp      = new Stamp;
-        // $color      = new Color;
-        // $conditions = new StampCondition;
-        // $country    = new Country;
-        // $theme      = new Theme;
+        $stamp      = new Stamp;
+        $color      = new Color;
+        $conditions = new StampCondition;
+        $country    = new Country;
+        $theme      = new Theme;
 
-        // $fetchAllStamps = $stamp->fetchAllById($_SESSION['user_id'], "user_id", "id");
+        $fetchAllStamps = $stamp->fetchAllById($_SESSION['user_id'], "user_id", "id");
 
-        // foreach ($fetchAllStamps as $key => $oneStamp) {
-        //     $colorName                        = $color->selectId($oneStamp["color_id"]);
-        //     $fetchAllStamps[$key]["color_id"] = $colorName["color"];
+        foreach ($fetchAllStamps as $key => $oneStamp) {
+            $colorName                        = $color->selectId($oneStamp["color_id"]);
+            $fetchAllStamps[$key]["color_id"] = $colorName["color"];
 
-        //     $conditionsName                             = $conditions->selectId($oneStamp["stamp_condition_id"]);
-        //     $fetchAllStamps[$key]["stamp_condition_id"] = $colorName["stamp_condition"];
+            $conditionsName                             = $conditions->selectId($oneStamp["stamp_condition_id"]);
+            $fetchAllStamps[$key]["stamp_condition_id"] = $colorName["stamp_condition"];
 
-        //     $countryName                        = $country->selectId($oneStamp["country_id"]);
-        //     $fetchAllStamps[$key]["country_id"] = $countryName["country"];
+            $countryName                        = $country->selectId($oneStamp["country_id"]);
+            $fetchAllStamps[$key]["country_id"] = $countryName["country"];
 
-        //     $themeName                        = $theme->selectId($oneStamp["theme_id"]);
-        //     $fetchAllStamps[$key]["theme_id"] = $themeName["theme"];
-        // }
+            $themeName                        = $theme->selectId($oneStamp["theme_id"]);
+            $fetchAllStamps[$key]["theme_id"] = $themeName["theme"];
+        }
 
-        return View::render('stamp/index');
+        return View::render('stamp/index', ['AllStamp' => $fetchAllStamps]);
     }
 }
 
