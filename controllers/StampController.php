@@ -44,7 +44,6 @@ class StampController
     {
         $validator = new Validator;
 
-        // Validaciones de los campos
         $validator->field('name', $data['name'], "Titre du timbre")->required()->max(200);
         $validator->field('description', $data['description'], "Description du timbre")->required();
         $validator->field('year', $data['year'], "L'époque du timbre")->required()->inRange(1900, date("Y"));
@@ -188,7 +187,7 @@ class StampController
 
     public function edit()
     {
-        $get     = ! empty($get) ? $get : $_GET;
+        $get     = $_GET;
         $idStamp = $get["id"];
 
         $color        = new Color;
@@ -206,51 +205,60 @@ class StampController
         $stamp       = new Stamp;
         $selectStamp = $stamp->selectID($idStamp);
 
-        if ($_SESSION["user_id"] == $selectStamp["user_id"]) {
-            return View::render('error', ['msg' => "Veuillez vous inscrire avant d'essayer d\'accéder ici"]);
+        if ($_SESSION["user_id"] != $selectStamp["user_id"]) {
+            return View::render('error', ['msg' => "Vous n'avez pas accès à ce timbre"]);
         }
 
+        return View::render('stamp/edit', [
+            'stamp'      => $selectStamp,
+            'colors'     => $selectColors,
+            'conditions' => $selectCondition,
+            'countries'  => $selectCountry,
+            'themes'     => $selectTheme,
+        ]);
     }
 
     public function update($data = [])
     {
-        $get     = ! empty($get) ? $get : $_GET;
+        $get     = $_GET;
         $idStamp = $get["id"];
 
-        if ($_SESSION["user_id"] == $data["user_id"]) {
-            $validator = new Validator;
+        $stamp       = new Stamp;
+        $selectStamp = $stamp->selectID($idStamp);
 
-            $validator->field('name', $data['name'], "Titre du timbre")->required()->max(200);
-            $validator->field('description', $data['description'], "Description du timbre")->required();
-            $validator->field('year', $data['year'], "L'époque du timbre")->required()->inRange(1900, date("Y"));
-            $validator->field('tirage', $data['tirage'], "Nombre d'exemplaires imprimés")->required();
-            $validator->field('width', $data['width'], "Largeur en cm")->required()->number();
-            $validator->field('height', $data['height'], "Longueur en cm")->required()->number();
-            $validator->field('stamp_condition_id', $data['stamp_condition_id'] ?? null, "L'état du timbre")->notSelected();
-            $validator->field('theme_id', $data['theme_id'] ?? null, "Indique le theme")->notSelected();
-            $validator->field('color_id', $data['color_id'] ?? null, "Indique Couleur principale")->notSelected();
-            $validator->field('country_id', $data['country_id'] ?? null, "Indique Pay d'origine")->notSelected();
+        if ($_SESSION["user_id"] != $selectStamp["user_id"]) {
+            return View::render('error', ['msg' => "Vous n'avez pas accès à ce timbre."]);
+        }
 
-            if ($validator->isSuccess()) {
-                $data["user_id"] = $_SESSION['user_id'];
-                $stamp           = new Stamp;
-                $updateStamp     = $stamp->update($data, $idStamp);
+        $validator = new Validator;
 
-                if ($updateStamp) {
-                    $_SESSION['stampId'] = $idStamp;
-                    return View::redirect('stamp/create-image');
-                } else {
-                    return View::render('error', ['msg' => 'L\'image n\'a pas pu être envoyée']);
-                }
+        $validator->field('name', $data['name'], "Titre du timbre")->required()->max(200);
+        $validator->field('description', $data['description'], "Description du timbre")->required();
+        $validator->field('year', $data['year'], "L'époque du timbre")->required()->inRange(1900, date("Y"));
+        $validator->field('tirage', $data['tirage'], "Nombre d'exemplaires imprimés")->required();
+        $validator->field('width', $data['width'], "Largeur en cm")->required()->number();
+        $validator->field('height', $data[' height'], "Longueur en cm")->required()->number();
+        $validator->field('stamp_condition_id', $data['stamp_condition_id'] ?? null, "L'état du timbre")->notSelected();
+        $validator->field('theme_id', $data['theme_id'] ?? null, "Indique le theme")->notSelected();
+        $validator->field('color_id', $data['color_id'] ?? null, "Indique Couleur principale")->notSelected();
+        $validator->field('country_id', $data['country_id'] ?? null, "Indique Pay d'origine")->notSelected();
+
+        if ($validator->isSuccess()) {
+            $data["user_id"] = $_SESSION['user_id'];
+            $updateStamp     = $stamp->update($data, $idStamp);
+
+            if ($updateStamp) {
+                $_SESSION['stampId'] = $idStamp;
+                return View::redirect('stamp/create-image');
             } else {
-                $errors = $validator->getErrors();
-                return View::render('stamp/create', ['errors' => $errors, 'stamp' => $data]);
+                return View::render('error', ['msg' => 'L\'image n\'a pas pu être envoyée']);
             }
         } else {
-            return View::render('error', ['msg' => "Veuillez vous inscrire avant d'essayer d'accéder ici"]);
+
+            $errors = $validator->getErrors();
+            return View::render('stamp/create', ['errors' => $errors, 'stamp' => $data]);
         }
     }
-
 }
 
 // echo('<pre>');
