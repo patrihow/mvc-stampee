@@ -1,3 +1,36 @@
 .table-index {
+  padding: var(--spacing-broad) 0;
+}
 
+.table thead tr {
+  background-color: var(--color-beige-clair);
+  color: white;
+  text-align: left;
+}
+
+.table th,
+td {
+  padding: 15px 20px;
+}
+
+.table th {
+  border: 1px solid var(--color-nav-clair);
+}
+
+.table tr:nth-child(even) {
+  background-color: var(--color-nav-background);
+}
+
+.table table {
+  width: 100%;
+
+  border-collapse: collapse;
+
+  border: 1px solid transparent;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.table tbody tr:last-of-type {
+  border-bottom: 2px solid var(--color-bleu-royal);
 }
