@@ -178,3 +178,9 @@ INSERT INTO mvc_stampee.stamp_condition (id, name) VALUES
 
 SELECT * FROM theme;
 SELECT * FROM stamp_condition;
+SELECT * FROM image_to_upload;
+
+UPDATE mvc_stampee.theme
+SET name = 'Personnages célèbres'
+WHERE id = 2;
+

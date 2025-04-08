@@ -129,7 +129,6 @@ class Validator
         return $this;
     }
 
-    // Vérifie si la valeur n'est pas définie ou si elle est égale à la chaîne "disabled".
     public function notSelected()
     {
         if (! isset($this->value) || $this->value === "" || $this->value === "disabled") {
@@ -185,13 +184,11 @@ class Validator
 
         if ($_FILES[$file]["error"] != 4) {
 
-            if ($_FILES[$file]["size"] < $maxSize) {
-                $this->errors[$this->key] = "$this->name est trop lourde!";
+            if ($_FILES[$file]["size"] > $maxSize) {
+                $this->errors[$this->key] = "$this->name  fichier dépasse la taille maximale autorisée";
             }
         }
         return $this;
     }
-
-    
 
 }

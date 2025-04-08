@@ -32,11 +32,16 @@ class StampController
         $theme       = new Theme;
         $selectTheme = $theme->select();
 
+        $currentYear = date('Y');
+        $years       = range(1900, $currentYear);
+
+        // var_dump($selectColors);
         return View::render('stamp/create', [
             'colors'     => $selectColors,
             'conditions' => $selectCondition,
             'countries'  => $selectCountry,
             'themes'     => $selectTheme,
+            'years'      => $years,
         ]);
     }
 
@@ -46,7 +51,10 @@ class StampController
 
         $validator->field('name', $data['name'], "Titre du timbre")->required()->max(200);
         $validator->field('description', $data['description'], "Description du timbre")->required();
-        $validator->field('year', $data['year'], "L'époque du timbre")->required()->inRange(1900, date("Y"));
+
+        $year = (int) $data['year'];
+        $validator->field('year', $year, "L'époque du timbre")->required()->inRange(1900, date("Y"));
+
         $validator->field('tirage', $data['tirage'], "Nombre d'exemplaires imprimés")->required();
         $validator->field('width', $data['width'], "Largeur en cm")->required()->number();
         $validator->field('height', $data['height'], "Longueur en cm")->required()->number();
@@ -56,9 +64,12 @@ class StampController
         $validator->field('country_id', $data['country_id'] ?? null, "Indique Pay d'origine")->notSelected();
 
         if ($validator->isSuccess()) {
-            $data["user_id"] = $_SESSION['user_id'];
-            $stamp           = new Stamp;
-            $insertStamp     = $stamp->insert($data);
+            $data["user_id"]      = $_SESSION['user_id'];
+            $data["is_certified"] = 0;
+            $data["year"]         = $year;
+
+            $stamp       = new Stamp;
+            $insertStamp = $stamp->insert($data);
 
             if ($insertStamp) {
                 $_SESSION['stampId'] = $insertStamp;
@@ -85,21 +96,39 @@ class StampController
             ->checkImageFormat('file_name')
             ->checkIfImage('file_name')
             ->checkFileSize('file_name');
+        // ->checkuniqueImage('file_name');
+
+        $validator->field('description_alt', $data['description_alt'], "La description de l'image principale")
+            ->required()
+            ->min(5)
+            ->max(100);
 
         if ($_FILES['second_file']['error'] == 0) {
-            $validator->field('second_file', $_FILES['second_file'], "Seconde image")
+            $validator->field('second_file', $_FILES['second_file'], "La seconde image")
                 ->checkFileUploaded('second_file')
                 ->checkImageFormat('second_file')
                 ->checkIfImage('second_file')
                 ->checkFileSize('second_file');
+            // ->checkuniqueImage('second_file');
+
+            $validator->field('second_description', $data['second_description'], "La description de la seconde image")
+                ->required()
+                ->min(5)
+                ->max(100);
         }
 
         if ($_FILES['third_file']['error'] == 0) {
-            $validator->field('third_file', $_FILES['third_file'], "Troisième image")
+            $validator->field('third_file', $_FILES['third_file'], "La troisième image")
                 ->checkFileUploaded('third_file')
                 ->checkImageFormat('third_file')
                 ->checkIfImage('third_file')
                 ->checkFileSize('third_file');
+            // ->checkuniqueImage('third_file');
+
+            $validator->field('third_description', $data['third_description'], "La description de la troisième image")
+                ->required()
+                ->min(5)
+                ->max(100);
         }
         $idStampUser = $_SESSION['stampId'];
 
@@ -112,17 +141,18 @@ class StampController
             foreach ($data as $oneData) {
 
                 if ($oneData != null) {
-                    $oneDataStore                = [];
-                    $oneDataStore["position"]    = $position;
-                    $oneDataStore["description"] = $oneData;
-                    $oneDataStore["stamp_id"]    = $idStampUser;
-                    $oneDataStore["file_name"]   = "";
+                    $oneDataStore                    = [];
+                    $oneDataStore["position"]        = $position;
+                    $oneDataStore["description"]     = $oneData;
+                    $oneDataStore["description_alt"] = $data['description_alt'];
+                    $oneDataStore["stamp_id"]        = $idStampUser;
+                    $oneDataStore["file_name"]       = "";
 
                     foreach ($_FILES as $oneFile => $fileInfos) {
                         if ($fileInfos["error"] === 0) {
                             $folderUpload = __DIR__ . '/../public/uploads/';
                             $targetedFile = $folderUpload . basename($fileInfos["name"]);
-                            if (move_uploaded_file($fileInfos['temporal_name'], $targetedFile)) {
+                            if (move_uploaded_file($fileInfos['tmp_name'], $targetedFile)) {
                                 $oneDataStore["file_name"] = basename($fileInfos["name"]);
                             }
                         }
@@ -144,7 +174,7 @@ class StampController
 
             if ($insertAllData) {
                 $_SESSION['stampId'] = null;
-                return View::redirect('user/show');
+                return View::redirect('stamp/index');
 
             } else {
                 return View::render('error', ['msg' => 'Les images n\'ont pas pu être chargées']);
@@ -237,7 +267,7 @@ class StampController
         $validator->field('year', $data['year'], "L'époque du timbre")->required()->inRange(1900, date("Y"));
         $validator->field('tirage', $data['tirage'], "Nombre d'exemplaires imprimés")->required();
         $validator->field('width', $data['width'], "Largeur en cm")->required()->number();
-        $validator->field('height', $data[' height'], "Longueur en cm")->required()->number();
+        $validator->field('height', $data['height'], "Longueur en cm")->required()->number();
         $validator->field('stamp_condition_id', $data['stamp_condition_id'] ?? null, "L'état du timbre")->notSelected();
         $validator->field('theme_id', $data['theme_id'] ?? null, "Indique le theme")->notSelected();
         $validator->field('color_id', $data['color_id'] ?? null, "Indique Couleur principale")->notSelected();

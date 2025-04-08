@@ -12,7 +12,7 @@
                         <th>Tirage</th>
                         <th>Largeur (cm)</th>
                         <th>Longueur (cm)</th>
-                        <th>Certifié</th> <
+                        <th>Certifié</th> 
                         <th>Condition du timbre</th> 
                         <th>Pays d’origine</th>
                         <th>Thématique</th>

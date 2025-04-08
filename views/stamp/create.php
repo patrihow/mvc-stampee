@@ -26,11 +26,15 @@
     {% endif %}
 
     <label for="year">L'époque du timbre</label>
-    <input class="login-input" type="date" id="year" name="year" value="{{stamp.year}}"/>
-    {% if errors.year is defined %}
-    <span class="span-erreur"> {{errors.year}}</span>
-    {% endif %}
-
+<select class="login-input" id="year" name="year">
+    <option value="" disabled selected>Choisir l'année</option>
+    {% for year in years %}
+        <option value="{{ year }}" {% if stamp.year == year %} selected {% endif %}>{{ year }}</option>
+    {% endfor %}
+</select>
+{% if errors.year is defined %}
+<span class="span-erreur"> {{ errors.year }}</span>
+{% endif %}
 
     <label for="tirage">Tirage</label>
     <input class="login-input" type="text" id="tirage" name="tirage" placeholder="Entrez le nombre d'exemplaires imprimés" min="0" step="0.01" value="{{stamp.tirage}}"/>
