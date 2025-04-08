@@ -1,76 +1,121 @@
 /* === CARD CONTAINER === */
 .carte {
-    background: var(--color-fond-clair);
-    border-radius: var(--radius-sharp);
-    overflow: hidden;
-    font-family: var(--font-base);
-    transition: transform 0.4s ease-out, box-shadow 0.4s ease-out;
+  background: var(--color-fond-clair);
+  border-radius: var(--radius-sharp);
+  overflow: hidden;
+  font-family: var(--font-base);
+  transition: transform 0.4s ease-out, box-shadow 0.4s ease-out;
 }
 
 .carte:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  transform: translateY(-6px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
 /* === HEADER (IMAGE + FAVORI) === */
 .carte-entete {
-    position: relative;
-    width: 100%;
+  position: relative;
+  width: 100%;
 }
 
 .carte-image {
-    width: 100%;
-    height: 180px;
-    display: block;
-    object-fit: cover;
-    object-position: top;
+  width: 100%;
+  height: 180px;
+  display: block;
+  object-fit: cover;
+  object-position: top;
 }
-
 
 /* === CARD CONTENT === */
 .carte-contenu {
-    padding: var(--spacing-thinnest);
+  padding: var(--spacing-thinnest);
 }
 
 .carte-temps {
-    font-size: var(--font-shortest);
-    color: var(--color-texte-gris);
-    margin-bottom: var(--spacing-nano);
-    font-weight: 600;
+  font-size: var(--font-shortest);
+  color: var(--color-texte-gris);
+  margin-bottom: var(--spacing-nano);
+  font-weight: 600;
 }
 
 .carte-prix {
-    font-size: var(--font-current);
-    font-weight: bold;
-    color: var(--color-accent-dore);
+  font-size: var(--font-current);
+  font-weight: bold;
+  color: var(--color-accent-dore);
 }
 
 /* === BOUTON POUR LES CARTES === */
 .carte-bouton {
-    width: 100%;
-    display: block;
-    text-align: center;
-    padding: var(--spacing-micro) var(--spacing-thinnest);
-    font-size: var(--font-short);
-    font-weight: 600;
-    color: var(--color-bleu-royal);
-    border: none;
-    border-radius: var(--radius-sharp);
-    margin-top: var(--spacing-thinnest);
-    transition: background-color 0.3s ease-in-out, transform 0.3s ease-out;
-    text-decoration: none;
-    text-transform: uppercase;
-    border: 2px solid var(--color-accent-dore);
+  width: 100%;
+  display: block;
+  text-align: center;
+  padding: var(--spacing-micro) var(--spacing-thinnest);
+  font-size: var(--font-short);
+  font-weight: 600;
+  color: var(--color-bleu-royal);
+  border: none;
+  border-radius: var(--radius-sharp);
+  margin-top: var(--spacing-thinnest);
+  transition: background-color 0.3s ease-in-out, transform 0.3s ease-out;
+  text-decoration: none;
+  text-transform: uppercase;
+  border: 2px solid var(--color-accent-dore);
 }
 
 .carte-bouton:hover {
-    background-color: var(--color-accent-dore);
-    color: white;
-    transform: scale(1.05);
+  background-color: var(--color-accent-dore);
+  color: white;
+  transform: scale(1.05);
 }
 
 .carte-contenu footer {
-    width: 100%;
-    display: flex;
-    justify-content: center;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.enchere-input {
+  display: flex;
+  align-items: center;
+  margin-top: var(--spacing-thinnest);
+}
+
+/* === STYLES POUR L'INPUT D'OFFRE === */
+.input-offre {
+  flex: 1;
+  padding: var(--spacing-micro);
+  font-size: var(--font-short);
+  border: 2px solid var(--color-bleu-royal);
+  border-radius: var(--radius-sharp);
+  margin-right: var(--spacing-nano);
+  transition: border-color 0.3s ease-in-out;
+}
+
+.input-offre:focus {
+  border-color: var(--color-accent-dore);
+  outline: none;
+}
+
+.bouton.miser {
+  background-color: var(--color-bleu-royal);
+  color: var(--color-blanc);
+  padding: var(--spacing-micro) var(--spacing-thinnest);
+  border: none;
+  border-radius: var(--radius-sharp);
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out, transform 0.3s ease-out;
+}
+
+.bouton.miser:hover {
+  background-color: var(--color-accent-dore);
+  transform: scale(1.05);
+}
+.bouton.miser i {
+  font-size: 1.2rem;
+  margin-right: 0.5rem;
+  color: var(--color-blanc);
+  transition: color 0.3s ease-in-out;
+}
+
+.bouton.miser:hover i {
+  color: var(--color-accent-dore);
 }

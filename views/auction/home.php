@@ -28,7 +28,7 @@
 <article class="annonce-vedette">
   <div class="text-container">
       <h2>Lord Reginald Stampee III, un héritage philatélique</h2>
-      <p>Visionnaire et collectionneur émérite, Lord Stampee a consacré sa vie à l’art philatélique. 
+      <p>Visionnaire et collectionneur émérite, Lord Stampee a consacré sa vie à l’art philatélique.
         Depuis plus d’un demi-siècle, ses enchères prestigieuses attirent les connaisseurs du monde entier.</p>
       <a class="bouton btn-secondaire" href="lord-stampee.html">Découvrir son histoire</a>
   </div>
@@ -40,33 +40,39 @@
       <section class="encheres">
         <h1>La sélection coup de cœur de Lord Stampee</h1>
         <div class="grille">
-          <article class="carte">
-            <header class="carte-entete">
-              <div class="favori">
-                <a href="#"><i class="fa-solid fa-heart"></i> 1052</a>
-              </div>
-              <img
-                class="carte-image"
-                src="{{asset}}/images/timbres/timbre-NicolasCage-1964-1.jpg"
-                alt="Nicolas Cage 1964 - États-Unis Légende d’Hollywood, Trésor mondial"
-              />
-            </header>
-            <div class="carte-contenu">
-              <p class="carte-temps">Il reste 7h 02m 00s</p>
-              <h3>
-                <strong
-                  >Nicolas Cage 1964 - États-Unis - Légende d’Hollywood</strong
-                >
-              </h3>
-              <p class="texte-small">Enchère actuelle</p>
-              <span class="prix"><strong>$7120</strong></span>
-              <footer>
-                <a href="fiche-enchere.html" class="bouton btn-cartes"
-                  >Enchérir</a
-                >
-              </footer>
+
+<!-- Modèle de carte pour boucle foreach -->
+<article class="carte">
+    <header class="carte-entete">
+        <div class="favori">
+            <a href="#"><i class="fa-solid fa-heart"></i> 1052</a>
+        </div>
+        <img
+            class="carte-image"
+            src="{{asset}}/images/timbres/timbre-NicolasCage-1964-1.jpg"
+            alt="Nicolas Cage 1964 - États-Unis Légende d’Hollywood, Trésor mondial"
+        />
+    </header>
+    <div class="carte-contenu">
+        <p class="carte-temps">Il reste 7h 02m 00s</p>
+        <h3>
+            <strong>Nicolas Cage 1964 - États-Unis - Légende d’Hollywood</strong>
+        </h3>
+        <p class="texte-small">Enchère actuelle</p>
+        <span class="prix"><strong>$7120</strong></span>
+        <footer>
+            <div class="enchere-input">
+                <input type="number" placeholder="Votre offre" class="input-offre"/>
+                <button class="bouton miser">
+                    <i class="fa-solid fa-gavel"></i> Miser
+                </button>
             </div>
-          </article>
+            <a href="fiche-enchere.html" class="bouton btn-cartes">Voir détails</a>
+        </footer>
+    </div>
+</article>
+<!-- Fin du Modèle de carte pour boucle foreach -->
+
           <article class="carte">
             <header class="carte-entete">
               <div class="favori">
