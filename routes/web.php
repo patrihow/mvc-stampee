@@ -20,6 +20,9 @@ Route::get('/stamp/edit', 'StampController@edit');
 Route::post('/stamp/edit', 'StampController@update');
 Route::post('/stamp/delete', 'StampController@delete');
 
+Route::get('/auction?year=2000&etat', 'AuctionController@index');
+Route::get('/auction/show', 'AuctionController@show');
+
 Route::get('/login', 'AuthController@login');
 Route::post('/login', 'AuthController@store');
 Route::get('/logout', 'AuthController@delete');

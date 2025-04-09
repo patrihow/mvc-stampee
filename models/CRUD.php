@@ -18,10 +18,11 @@ abstract class CRUD extends \PDO
         return $stmt->fetchAll();
     }
 
-    final public function selectId($value)
+    final public function selectId($value, $whereField = null)
     {
-        $sql  = "SELECT * FROM $this->table WHERE $this->primaryKey = :$this->primaryKey";
-        $stmt = $this->prepare($sql);
+        $whereField = $whereField ? $whereField : $this->primaryKey;
+        $sql        = "SELECT * FROM $this->table WHERE $this->primaryKey = :$this->primaryKey";
+        $stmt       = $this->prepare($sql);
         $stmt->bindValue(":$this->primaryKey", $value);
         $stmt->execute();
         $count = $stmt->rowCount();
@@ -109,24 +110,63 @@ abstract class CRUD extends \PDO
         }
     }
 
-    final public function fetchAllById($fieldID, $conditionField, $sortField = null, $sortOrder = 'ASC')
-{
+// -- Fonction créée pour le Sprint 2
 
-    if ($sortField === null) {
-        $sortField = $this->primaryKey;
+    final public function fetchAllById($fieldID, $conditionField, $sortField = null, $sortOrder = 'ASC')
+    {
+
+        if ($sortField === null) {
+            $sortField = $this->primaryKey;
+        }
+
+        $query = "SELECT * FROM $this->table WHERE $conditionField = :fieldID ORDER BY $sortField $sortOrder";
+
+        $statement = $this->prepare($query);
+
+        $statement->bindValue(":fieldID", $fieldID);
+
+        $statement->execute();
+
+        return $statement->fetchAll();
     }
 
-    $query  = "SELECT * FROM $this->table WHERE $conditionField = :fieldID ORDER BY $sortField $sortOrder";
- 
-    $statement = $this->prepare($query);
-    
+    // -- Nouvelles fonctions ajoutées pour Stampee
+    final public function selectByLimit($field = null, $limit = 4, $order = 'ASC')
+    {
+        if ($field === null) {
+            $field = $this->primaryKey;
+        }
+        $sql  = "SELECT * FROM $this->table ORDER BY $field $order LIMIT $limit";
+        $stmt = $this->query($sql);
+        return $stmt->fetchAll();
+    }
 
-    $statement->bindValue(":fieldID", $fieldID);
-    
+    final public function selectIdWhere($whereField, $value)
+    {
+        $sql  = "SELECT * FROM $this->table WHERE $whereField = :value";
+        $stmt = $this->prepare($sql);
+        $stmt->bindValue(":value", $value);
+        $stmt->execute();
+        $count = $stmt->rowCount();
+        if ($count == 1) {
+            return $stmt->fetch();
+        } else {
+            return false;
+        }
+    }
 
-    $statement->execute();
-    
+    final public function selectWhereIdMax($whereField, $value, $column)
+    {
+        $sql  = "SELECT * FROM $this->table WHERE $whereField = :value AND $column = (SELECT MAX($column) FROM $this->table WHERE $whereField = :value)";
+        $stmt = $this->prepare($sql);
+        $stmt->bindValue(":value", $value);
+        $stmt->execute();
+        $count = $stmt->rowCount();
+        if ($count == 1) {
+            return $stmt->fetch();
+        } else {
+            return false;
+        }
+    }
 
-    return $statement->fetchAll();
-}
 }

@@ -184,3 +184,14 @@ UPDATE mvc_stampee.theme
 SET name = 'Personnages célèbres'
 WHERE id = 2;
 
+-- Table Bid
+SELECT *
+FROM bid
+WHERE auction_id = 1
+  AND bid_amount = (
+    SELECT MAX(bid_amount)
+    FROM bid
+    WHERE auction_id = 1
+);
+
+
