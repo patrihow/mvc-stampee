@@ -69,7 +69,7 @@ class AuctionController
         $filterConditions = $conditionsModel->select();
         $filterCountry    = $countryModel->select();
         $filterColors     = $colorModel->select();
-        return View::render('auction/catalogue', ['auctions' => $auctions, 'conditions' => $filterConditions, 'countries' => $filterCountry, 'colors' => $filterColors]);
+        return View::render('auction/catalog', ['auctions' => $auctions, 'conditions' => $filterConditions, 'countries' => $filterCountry, 'colors' => $filterColors]);
 
     }
 
