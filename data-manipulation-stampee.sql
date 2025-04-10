@@ -193,5 +193,9 @@ WHERE auction_id = 1
     FROM bid
     WHERE auction_id = 1
 );
+SELECT * FROM state;
 
+INSERT INTO state (name) VALUES ('Active');
+INSERT INTO state (name) VALUES ('Finished');
+INSERT INTO state (name) VALUES ('Pending');
 

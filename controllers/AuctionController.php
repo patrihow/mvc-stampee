@@ -66,4 +66,21 @@ class AuctionController
             'auctions' => $auctions
         ]);
     }
+
+    public function filter() {
+
+        $auctionModel = new Auction;
+
+        $auctions = $auctionModel->filter($_GET);
+
+        $stampModel = new Stamp;
+        $imageModel = new ImageToUpload;
+        $conditionsModel = new StampCondition;
+        $themeModel = new Theme; 
+        $bidModel = new Bid;
+        $userModel = new User;
+
+      
+
+    }
 }
