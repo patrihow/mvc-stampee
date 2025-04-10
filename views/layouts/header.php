@@ -83,8 +83,9 @@
             <li><a href="#">Archives</a></li>
           </ul>
         </li>
-        <li><a href="#">Actualités philatéliques</a></li>
-        <li><a href="#">La philatélie, c’est la vie</a></li>
+        <li><a href="{{base}}/pages/lord-stampee">Coup de cœur du Lord</a></li>
+<li><a href="{{base}}/pages/actualites">Actualités philatéliques</a></li>
+<li><a href="{{base}}/pages/philatelie">La philatélie, c’est la vie</a></li>
       </ul>
 
       <!-- Barre de recherche -->

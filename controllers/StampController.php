@@ -96,7 +96,6 @@ class StampController
             ->checkImageFormat('file_name')
             ->checkIfImage('file_name')
             ->checkFileSize('file_name');
-        
 
         $validator->field('description_alt', $data['description_alt'], "La description de l'image principale")
             ->required()
@@ -109,7 +108,6 @@ class StampController
                 ->checkImageFormat('second_file')
                 ->checkIfImage('second_file')
                 ->checkFileSize('second_file');
-            
 
             $validator->field('second_description', $data['second_description'], "La description de la seconde image")
                 ->required()
@@ -123,7 +121,6 @@ class StampController
                 ->checkImageFormat('third_file')
                 ->checkIfImage('third_file')
                 ->checkFileSize('third_file');
-            
 
             $validator->field('third_description', $data['third_description'], "La description de la troisième image")
                 ->required()
@@ -133,55 +130,55 @@ class StampController
         $idStampUser = $_SESSION['stampId'];
 
         if ($validator->isSuccess()) {
-            $idStampUser = $_SESSION['stampId'];  
-            $folderUpload = __DIR__ . '/../public/uploads/'; 
-            
+            $idStampUser  = $_SESSION['stampId'];
+            $folderUpload = __DIR__ . '/../public/uploads/';
+
             $mainImageData = [
-                "position" => 0,
-                "description" => null, 
+                "position"        => 0,
+                "description"     => null,
                 "description_alt" => $data['description_alt'],
-                "stamp_id" => $idStampUser,
-                "file_name" => "",
+                "stamp_id"        => $idStampUser,
+                "file_name"       => "",
             ];
-            
+
             if (isset($_FILES['file_name']) && $_FILES['file_name']['error'] === 0) {
                 $mainImageData["description"] = $data['description_alt'];
-                $mainImageData["file_name"] = basename($_FILES['file_name']['name']);
+                $mainImageData["file_name"]   = basename($_FILES['file_name']['name']);
                 move_uploaded_file($_FILES['file_name']['tmp_name'], $folderUpload . $mainImageData["file_name"]);
-                
+
                 $ImageToUpload = new ImageToUpload;
                 $ImageToUpload->insert($mainImageData);
             }
-        
+
             if (isset($_FILES['second_file']) && $_FILES['second_file']['error'] === 0) {
                 $secondImageData = [
-                    "position" => 1,
-                    "description" => $data['second_description'],
+                    "position"        => 1,
+                    "description"     => $data['second_description'],
                     "description_alt" => '',
-                    "stamp_id" => $idStampUser,
-                    "file_name" => basename($_FILES['second_file']['name']),
+                    "stamp_id"        => $idStampUser,
+                    "file_name"       => basename($_FILES['second_file']['name']),
                 ];
                 move_uploaded_file($_FILES['second_file']['tmp_name'], $folderUpload . $secondImageData["file_name"]);
-                
+
                 $ImageToUpload->insert($secondImageData);
             }
-        
+
             if (isset($_FILES['third_file']) && $_FILES['third_file']['error'] === 0) {
                 $thirdImageData = [
-                    "position" => 2,
-                    "description" => $data['third_description'],
+                    "position"        => 2,
+                    "description"     => $data['third_description'],
                     "description_alt" => '',
-                    "stamp_id" => $idStampUser,
-                    "file_name" => basename($_FILES['third_file']['name']),
+                    "stamp_id"        => $idStampUser,
+                    "file_name"       => basename($_FILES['third_file']['name']),
                 ];
                 move_uploaded_file($_FILES['third_file']['tmp_name'], $folderUpload . $thirdImageData["file_name"]);
-                
+
                 $ImageToUpload->insert($thirdImageData);
             }
-        
-            $_SESSION['stampId'] = null; 
-            return View::redirect('stamp/index'); 
-            
+
+            $_SESSION['stampId'] = null;
+            return View::redirect('stamp/index');
+
         } else {
             $errors = $validator->getErrors();
             return View::render('stamp/create-image', ['errors' => $errors, 'description' => $data]);

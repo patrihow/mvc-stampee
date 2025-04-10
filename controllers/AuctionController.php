@@ -2,12 +2,14 @@
 namespace App\Controllers;
 
 use App\Models\Auction;
+use App\Models\Bid;
 use App\Models\Color;
 use App\Models\Country;
 use App\Models\ImageToUpload;
 use App\Models\Stamp;
 use App\Models\StampCondition;
-use App\Models\Theme;
+use App\Models\Theme; 
+use App\Models\User;
 use App\Providers\View;
 
 class AuctionController
@@ -19,38 +21,49 @@ class AuctionController
 
     public function index()
     {
-        $objAuction = new Auction;
-        $auctions   = $objAuction->select();
+        $auctionModel = new Auction;
+        $stampModel = new Stamp;
+        $imageModel = new ImageToUpload;
+        $conditionsModel = new StampCondition;
+        $themeModel = new Theme; 
+        $bidModel = new Bid;
+        $userModel = new User;
 
-        $stamp         = new Stamp;
-        $ImageToUpload = new ImageToUpload;
-        $conditions    = new StampCondition;
-        $objColor      = new Color;
-        $objCountry    = new Country;
-        $objTheme      = new Theme;
-
-        $year = isset($_GET["year"]);
+        $auctions = $auctionModel->select();
 
         foreach ($auctions as $auctionsIndex => $auction) {
-
-            $stampData                             = $stamp->selectID(value: $auction['stamp_id']);
+            $stampData = $stampModel->selectId($auction['stamp_id']);
             $auctions[$auctionsIndex]['stampName'] = $stampData['name'];
             $auctions[$auctionsIndex]['yearStamp'] = $stampData['year'];
 
-            $stampConditionData = $conditions->selectID($stampData['stamp_condition_id']);
-
+            $stampConditionData = $conditionsModel->selectId($stampData['stamp_condition_id']);
             $auctions[$auctionsIndex]['stamp_condition'] = $stampConditionData["name"];
 
-            $stampImages = $ImageToUpload->selectID($auction['stamp_id'], whereField: "stamp_id");
+            
+            $themeData = $themeModel->selectId($stampData['theme_id']); 
+            $auctions[$auctionsIndex]['theme'] = $themeData['name']; 
 
+            $highestBid = $bidModel->selectWhereIdMax("auction_id", $auction["id"], "bid_amount");
+            if ($highestBid && !empty($highestBid)) {
+                $auctions[$auctionsIndex]['highestBid'] = $highestBid["bid_amount"];
+                $highestBidderInfo = $userModel->selectIdWhere("id", $highestBid["user_id"]);
+                $auctions[$auctionsIndex]['highestBidderName'] = $highestBidderInfo["name"];
+            } else {
+                $auctions[$auctionsIndex]['highestBid'] = "Pas de mise";
+                $auctions[$auctionsIndex]['highestBidderName'] = "Aucun";
+            }
+
+            $stampImages = $imageModel->fetchAllById($auction['stamp_id'], "stamp_id");
             foreach ($stampImages as $stampImagesIndex => $image) {
                 if ($image["position"] == 0) {
-                    $auctions[$auctionsIndex]['fileName'] = $image['file_name'];
-                    $auctions[$auctionsIndex]['fileName'] = $image['description_alt'];
+                    $auctions[$auctionsIndex]['file_name'] = $image['file_name'];
+                    $auctions[$auctionsIndex]['description'] = $image['description_alt'];
                 }
             }
         }
-        return View::render(template: 'auction/catalog', data: ['auctions' => $auctions]);
 
+        return View::render('auction/index', [
+            'auctions' => $auctions
+        ]);
     }
 }

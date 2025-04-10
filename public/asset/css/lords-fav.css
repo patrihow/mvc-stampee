@@ -1,0 +1,11 @@
+.lords-fav {
+    position: absolute; 
+    top: 10px; 
+    left: 10px; 
+    background-color: #eb5bb4; 
+    color: #ffffff; 
+    padding: 5px 10px; 
+    border-radius: 5px; 
+    font-weight: bold; 
+    z-index: 10; 
+}

@@ -44,6 +44,9 @@
 <!-- Modèle de carte pour boucle foreach -->
 <article class="carte">
     <header class="carte-entete">
+      <div class="lords-fav">
+        <a href="#">Coup de cœur du Lord</a>
+      </div>
         <div class="favori">
             <a href="#"><i class="fa-solid fa-heart"></i> 1052</a>
         </div>
