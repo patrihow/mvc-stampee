@@ -1,0 +1,36 @@
+.annonce-vedette {
+  display: flex;
+  background-color: var(--color-nav-background);
+  position: relative;
+  mix-blend-mode: multiply;
+  overflow: hidden;
+  min-height: 50dvh;
+  border-radius: var(--radius-sharp);
+  padding: var(--spacing-thin);
+  align-items: center;
+}
+
+.text-container {
+  flex: 1;
+  padding-right: 20px;
+}
+
+.annonce-vedette img {
+  max-width: 50%;
+  height: auto;
+  object-fit: cover;
+}
+
+.annonce-vedette * {
+  color: var(--color-bleu-royal);
+}
+
+.text-container h2 {
+  font-size: var(--font-taller);
+  margin-bottom: var(--spacing-thin);
+}
+
+.text-container p {
+  font-size: var(--font-tall);
+  margin-bottom: var(--spacing-broad);
+}

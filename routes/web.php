@@ -22,8 +22,12 @@ Route::post('/stamp/delete', 'StampController@delete');
 
 Route::get('/auction', 'AuctionController@index');
 
-Route::get('/auction?year=2000&etat', 'AuctionController@index');
 Route::get('/auction/show', 'AuctionController@show');
+
+Route::get('/auction/filter', 'AuctionController@filter');
+
+Route::post('/bid/store', 'BidController@store');
+Route::post('/bid/store/show', 'BidController@storeShow');
 
 Route::get('/login', 'AuthController@login');
 Route::post('/login', 'AuthController@store');

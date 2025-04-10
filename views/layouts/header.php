@@ -60,7 +60,7 @@
 
     <!-- Navigation principale -->
     <nav class="navigation-principale" aria-label="Navigation principale">
-      <a href="index.html">
+      <a href="{{base}}/">
         <img
           width="125"
           src="{{asset}}/images/logo-stampee.png"
@@ -75,12 +75,11 @@
 
       <ul class="nav-list">
         <li>
-          <a href="#">Ventes aux enchères </a
+          <a href="{{base}}/auction">Ventes aux enchères </a
           ><i class="fas fa-chevron-down"></i>
           <ul>
-            <li><a href="#">En cours</a></li>
-            <li><a href="#">À venir</a></li>
-            <li><a href="#">Archives</a></li>
+
+            <li><a href="{{base}}/auction/archive">Archives</a></li>
           </ul>
         </li>
         <li><a href="{{base}}/pages/lord-stampee">Coup de cœur du Lord</a></li>
