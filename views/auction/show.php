@@ -199,114 +199,36 @@
       <section class="encheres">
         <h1>Enchères qui pourraient vous intéresser</h1>
         <div class="grille">
-
-
-          <article class="carte">
-            <header class="carte-entete">
-              <div class="favori">
-                <a href="#"><i class="fa-solid fa-heart"></i> 52</a>
-              </div>
-              <img
-                class="carte-image"
-                src="assets/images/timbres/03-jeanclaude.jpg"
-                alt="Nicolas Cage 1964 - États-Unis Légende d’Hollywood, Trésor mondial"
-              />
-            </header>
-            <div class="carte-contenu">
-              <p class="carte-temps">Il reste 7h 02m 00s</p>
-              <h3>
-                <strong
-                  >Timbre oblitéré – Jean-Claude Killy 3F France 2000 Y&T
-                  3315</strong
-                >
-              </h3>
-              <p class="texte-small">Enchère actuelle</p>
-              <span class="prix"><strong>$70</strong></span>
-              <footer>
-                <a href="#" class="bouton btn-cartes">Enchérir</a>
-              </footer>
-            </div>
-          </article>
-          <article class="carte">
-            <header class="carte-entete">
-              <div class="favori">
-                <a href="#"><i class="fa-solid fa-heart"></i> 52</a>
-              </div>
-              <img
-                class="carte-image"
-                src="assets/images/timbres/03-jeanclaude.jpg"
-                alt="Nicolas Cage 1964 - États-Unis Légende d’Hollywood, Trésor mondial"
-              />
-            </header>
-            <div class="carte-contenu">
-              <p class="carte-temps">Il reste 7h 02m 00s</p>
-              <h3>
-                <strong
-                  >Timbre oblitéré – Jean-Claude Killy 3F France 2000 Y&T
-                  3315</strong
-                >
-              </h3>
-              <p class="texte-small">Enchère actuelle</p>
-              <span class="prix"><strong>$70</strong></span>
-              <footer>
-                <a href="#" class="bouton btn-cartes">Enchérir</a>
-              </footer>
-            </div>
-          </article>
-          <article class="carte">
-            <header class="carte-entete">
-              <div class="favori">
-                <a href="#"><i class="fa-solid fa-heart"></i> 52</a>
-              </div>
-              <img
-                class="carte-image"
-                src="assets/images/timbres/03-jeanclaude.jpg"
-                alt="Nicolas Cage 1964 - États-Unis Légende d’Hollywood, Trésor mondial"
-              />
-            </header>
-            <div class="carte-contenu">
-              <p class="carte-temps">Il reste 7h 02m 00s</p>
-              <h3>
-                <strong
-                  >Timbre oblitéré – Jean-Claude Killy 3F France 2000 Y&T
-                  3315</strong
-                >
-              </h3>
-              <p class="texte-small">Enchère actuelle</p>
-              <span class="prix"><strong>$70</strong></span>
-              <footer>
-                <a href="#" class="bouton btn-cartes">Enchérir</a>
-              </footer>
-            </div>
-          </article>
-          <article class="carte">
-            <header class="carte-entete">
-              <div class="favori">
-                <a href="#"><i class="fa-solid fa-heart"></i> 52</a>
-              </div>
-              <img
-                class="carte-image"
-                src="assets/images/timbres/03-jeanclaude.jpg"
-                alt="Nicolas Cage 1964 - États-Unis Légende d’Hollywood, Trésor mondial"
-              />
-            </header>
-            <div class="carte-contenu">
-              <p class="carte-temps">Il reste 7h 02m 00s</p>
-              <h3>
-                <strong
-                  >Timbre oblitéré – Jean-Claude Killy 3F France 2000 Y&T
-                  3315</strong
-                >
-              </h3>
-              <p class="texte-small">Enchère actuelle</p>
-              <span class="prix"><strong>$70</strong></span>
-              <footer>
-                <a href="#" class="bouton btn-cartes">Enchérir</a>
-              </footer>
-            </div>
-          </article>
-
-
+      {% for auction in auctions %}
+      <article class="carte">
+                    <header class="carte-entete">
+                        {% if auction.lord_favorite %}
+                            <div class="lords-fav">
+                                <a href="{{base}}/pages/lord-stampee">Coup de cœur du Lord</a>
+                            </div>
+                        {% endif %}
+                        <div class="favori">
+                            <a href="#"><i class="fa-solid fa-heart"></i> 1111</a>
+                        </div>
+                        <img class="carte-image" src="{{ uploads }}{{ auction.file_name }}" alt="{{ auction.stampName }}" />
+                    </header>
+                    <div class="carte-contenu">
+                        <p class="carte-temps">Il reste {{ auction.finish_at | date('H:i:s') }}</p>
+                        <h3><strong>{{ auction.stampName }}</strong></h3>
+                        <span class="prix"><strong>${{ auction.starting_price }}</strong></span>
+                        <footer>
+    <form action="{{ base }}/bid/store" method="POST" class="enchere-form">
+        <input type="number" name="bid_amount" placeholder="Votre offre" class="input-offre" min="{{ auction.highestBid ? auction.highestBid + 1 : auction.starting_price + 1 }}" required />
+        <input type="hidden" name="auction_id" value="{{ auction.id }}" />
+        <button type="submit" class="bouton miser">
+            <i class="fa-solid fa-gavel"></i> Miser
+        </button>
+    </form>
+    <a href="/auction/show?id={{ auction.id }}" class="bouton btn-cartes">Voir détails</a>
+</footer>
+                    </div>
+                </article>
+            {% endfor %}
 
         </div>
       </section>

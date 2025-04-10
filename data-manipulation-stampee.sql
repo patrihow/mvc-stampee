@@ -199,3 +199,120 @@ INSERT INTO state (name) VALUES ('Active');
 INSERT INTO state (name) VALUES ('Finished');
 INSERT INTO state (name) VALUES ('Pending');
 
+SELECT * FROM auction;
+SELECT * FROM stamp;
+SELECT * FROM image_to_upload;
+
+INSERT INTO auction (
+    name, 
+    started_at, 
+    finish_at, 
+    starting_price, 
+    lord_favorite, 
+    stamp_id, 
+    state_id
+) VALUES (
+	'Timbre Ours Brun',  
+    '2025-04-10 10:00:00',         
+    '2025-05-15 18:00:00',         
+    150.00,                        
+    0,                             
+    19,                             
+    1                  
+);
+
+SELECT * FROM bid;
+
+SELECT * FROM user;
+
+INSERT INTO bid (
+    bid_amount, 
+    created_at, 
+    user_id, 
+    auction_id
+) VALUES (
+    160.00,                
+    NOW(),                 
+    5,                     
+    1                      
+);
+
+
+INSERT INTO auction (
+    name, 
+    started_at, 
+    finish_at, 
+    starting_price, 
+    lord_favorite, 
+    stamp_id, 
+    state_id
+) VALUES (
+	'Nicolas Cage 1964',  
+    '2025-04-10 10:00:00',         
+    '2025-04-14 18:00:00',         
+    750.00,                        
+    0,                             
+    20,                             
+    1                  
+);
+
+SELECT * FROM bid;
+DELETE FROM bid WHERE id = 1;
+DELETE FROM bid WHERE id = 2;
+
+
+INSERT INTO auction (
+    name, 
+    started_at, 
+    finish_at, 
+    starting_price, 
+    lord_favorite, 
+    stamp_id, 
+    state_id
+) VALUES (
+	'Renoncule',  
+    '2025-04-10 10:00:00',         
+    '2025-07-15 14:00:00',         
+    750.00,                        
+    0,                             
+    21,                             
+    1                  
+);
+
+
+INSERT INTO auction (
+    name, 
+    started_at, 
+    finish_at, 
+    starting_price, 
+    lord_favorite, 
+    stamp_id, 
+    state_id
+) VALUES (
+	'Renoncule',  
+    '2025-04-10 10:00:00',         
+    '2025-07-15 14:00:00',         
+    750.00,                        
+    0,                             
+    21,                             
+    1                  
+);
+
+INSERT INTO auction (
+    name, 
+    started_at, 
+    finish_at, 
+    starting_price, 
+    lord_favorite, 
+    stamp_id, 
+    state_id
+) VALUES (
+	'Terre de nos aïeux',  
+    '2025-04-10 10:00:00',         
+    '2025-04-17 11:11:00',         
+    44.00,                        
+    0,                             
+    22,                             
+    1                  
+);
+
