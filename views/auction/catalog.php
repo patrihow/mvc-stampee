@@ -147,14 +147,15 @@
                         <h3><strong>{{ auction.stampName }}</strong></h3>
                         <span class="prix"><strong>${{ auction.starting_price }}</strong></span>
                         <footer>
-                        <div class="enchere-input">
-                <input type="number" placeholder="Votre offre" class="input-offre"/>
-                <button class="bouton miser">
-                    <i class="fa-solid fa-gavel"></i> Miser
-                </button>
-            </div>
-            <a href="show.php?id={{ auction.id }}" class="bouton btn-cartes">Voir détails</a>
-                        </footer>
+    <form action="{{ base }}/bid/store" method="POST" class="enchere-form">
+        <input type="number" name="bid_amount" placeholder="Votre offre" class="input-offre" min="{{ auction.highestBid ? auction.highestBid + 1 : auction.starting_price + 1 }}" required />
+        <input type="hidden" name="auction_id" value="{{ auction.id }}" />
+        <button type="submit" class="bouton miser">
+            <i class="fa-solid fa-gavel"></i> Miser
+        </button>
+    </form>
+    <a href="show.php?id={{ auction.id }}" class="bouton btn-cartes">Voir détails</a>
+</footer>
                     </div>
                 </article>
             {% endfor %}

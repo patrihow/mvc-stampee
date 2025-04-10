@@ -2,7 +2,7 @@
 
 use App\Routes\Route;
 
-Route::get('/', 'UserController@create');
+Route::get('/', 'AuctionController@home');
 
 Route::get('/user/create', 'UserController@create');
 Route::post('/user/create', 'UserController@store');
@@ -24,8 +24,6 @@ Route::get('/auction', 'AuctionController@index');
 
 Route::get('/auction?year=2000&etat', 'AuctionController@index');
 Route::get('/auction/show', 'AuctionController@show');
-
-
 
 Route::get('/login', 'AuthController@login');
 Route::post('/login', 'AuthController@store');
