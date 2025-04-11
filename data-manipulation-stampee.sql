@@ -315,4 +315,24 @@ INSERT INTO auction (
     22,                             
     1                  
 );
+SELECT * FROM stamp;
+SELECT * FROM image_to_upload;
 
+
+INSERT INTO auction (
+    name, 
+    started_at, 
+    finish_at, 
+    starting_price, 
+    lord_favorite, 
+    stamp_id, 
+    state_id
+) VALUES (
+	'Terre de nos aïeux',  
+    '2025-04-10 11:00:00',         
+    '2025-04-11 12:10:00',         
+    94.00,                        
+    0,                             
+    23,                             
+    1                  
+);

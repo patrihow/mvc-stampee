@@ -154,7 +154,7 @@
             <i class="fa-solid fa-gavel"></i> Miser
         </button>
     </form>
-    <a href="/auction/show?id={{ auction.id }}" class="bouton btn-cartes">Voir détails</a>
+    <a href="{{base}}/auction/show?id={{auction.id}}" class="bouton btn-cartes">Voir détails</a>
 </footer>
                     </div>
                 </article>

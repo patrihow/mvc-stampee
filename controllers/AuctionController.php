@@ -16,15 +16,50 @@ class AuctionController
 {
     public function home()
     {
-        $auctionModel    = new Auction;
-        $stampModel      = new Stamp;
-        $imageModel      = new ImageToUpload;
-        $conditionsModel = new StampCondition;
-        $colorModel      = new Color;
-        $countryModel    = new Country;
-        $bidModel        = new Bid;
-        $userModel       = new User;
-        return View::render('auction/home');
+        $auctionModel    = new Auction();
+        $stampModel      = new Stamp();
+        $imageModel      = new ImageToUpload();
+        $conditionsModel = new StampCondition();
+        $bidModel        = new Bid();
+        $userModel       = new User();
+
+        $bannerAuctions = $auctionModel->selectByLimit("started_at", 4, "DESC");
+
+        foreach ($bannerAuctions as $auctionsIndex => $auction) {
+            $stampInfo = $stampModel->selectId($auction['stamp_id']);
+
+            if ($stampInfo) {
+                $bannerAuctions[$auctionsIndex]['stampName'] = $stampInfo['name'] ?? 'Nombre no disponible';
+
+                $conditionInfo                               = $conditionsModel->selectId($stampInfo['stamp_condition_id']);
+                $bannerAuctions[$auctionsIndex]['condition'] = $conditionInfo ? $conditionInfo["name"] : 'Condición no disponible';
+
+                $highestBid = $bidModel->selectWhereIdMax("auction_id", $auction["id"], "bid_amount");
+                if ($highestBid) {
+
+                    $bannerAuctions[$auctionsIndex]['highestBid']    = (float) $highestBid["bid_amount"];
+                    $bannerAuctions[$auctionsIndex]['maxBidderName'] = $userModel->selectIdWhere("id", $highestBid["user_id"])["name"] ?? "Anónimo";
+                } else {
+                    $bannerAuctions[$auctionsIndex]['highestBid']    = 0;
+                    $bannerAuctions[$auctionsIndex]['maxBidderName'] = "Aucun(e)";
+                }
+
+                $bannerAuctions[$auctionsIndex]['minBid'] = (float) ($bannerAuctions[$auctionsIndex]['highestBid'] ? $bannerAuctions[$auctionsIndex]['highestBid'] + 1 : $auction['starting_price'] + 1);
+
+                $dateNow                                    = date("Y-m-d H:i:s");
+                $timeLeft                                   = $this->calculateTimeLeft($dateNow, $auction["finish_at"]);
+                $bannerAuctions[$auctionsIndex]['timeLeft'] = $timeLeft;
+
+                $stampImages = $imageModel->fetchAllById($auction['stamp_id'], "stamp_id");
+                foreach ($stampImages as $image) {
+                    if ($image["position"] == 0) {
+                        $bannerAuctions[$auctionsIndex]['fileName'] = $image['file_name'] ?? 'Imagen no disponible';
+                    }
+                }
+            }
+        }
+
+        return View::render('auction/home', ["bannerAuctions" => $bannerAuctions]);
     }
 
     public function index()
@@ -103,12 +138,12 @@ class AuctionController
         $highestBid = $bidModel->selectWhereIdMax("auction_id", $auction["id"], "bid_amount");
 
         if ($highestBid) {
-            $auction['maxBid']        = (float) $highestBid["bid_amount"];
-            $bidderInfo               = $userModel->selectIdWhere("id", $highestBid["user_id"]);
-            $auction['maxBidderName'] = $bidderInfo["name"];
+            $auction['highestBid']        = (float) $highestBid["bid_amount"];
+            $bidderInfo                   = $userModel->selectIdWhere("id", $highestBid["user_id"]);
+            $auction['highestBidderName'] = $bidderInfo["name"];
         } else {
-            $auction['maxBid']        = "Aucune mise";
-            $auction['maxBidderName'] = "Aucun(e)";
+            $auction['highestBid']        = "Aucune mise";
+            $auction['highestBidderName'] = "Aucun(e)";
         }
 
         $stampInfo                   = $stampModel->selectId($auction["stamp_id"]);
@@ -122,11 +157,11 @@ class AuctionController
         $stampInfo["conditionState"] = $conditionData["name"];
 
         $dateNowAuction      = date('Y-m-d H:i:s');
-        $auction['timeLeft'] = $this->calculateTimeLeft($dateNowAuction, $auction["dateFinish"]);
+        $auction['timeLeft'] = $this->calculateTimeLeft($dateNowAuction, $auction["finish_at"]);
 
         $stampImages = $imageModel->fetchAllById($stampInfo["id"], "stamp_id");
 
-        $bannerAuctions = $auctionModel->selectByLimit("dateStart", 4, "DESC");
+        $bannerAuctions = $auctionModel->selectByLimit("started_at", 4, "DESC");
         foreach ($bannerAuctions as $auctionsIndex => $bannerAuction) {
             $stampBannerInfo                               = $stampModel->selectId($bannerAuction['stamp_id']);
             $bannerAuctions[$auctionsIndex]['nameStamp']   = $stampBannerInfo['name'];
@@ -135,17 +170,17 @@ class AuctionController
             $conditionBanner                             = $conditionsModel->selectId($stampBannerInfo['stamp_condition_id']);
             $bannerAuctions[$auctionsIndex]['condition'] = $conditionBanner["name"];
 
-            $maxBidBanner = $bidModel->selectWhereIdMax("auction_id", $bannerAuction["id"], "bid_amount");
-            if ($maxBidBanner) {
-                $bannerAuctions[$auctionsIndex]['maxBid']        = (float) $maxBidBanner["bid_amount"];
-                $bidderBannerInfo                                = $userModel->selectIdWhere("id", $maxBidBanner["user_id"]);
-                $bannerAuctions[$auctionsIndex]['maxBidderName'] = $bidderBannerInfo["name"];
+            $highestBidBanner = $bidModel->selectWhereIdMax("auction_id", $bannerAuction["id"], "bid_amount");
+            if ($highestBidBanner) {
+                $bannerAuctions[$auctionsIndex]['highestBid']        = (float) $highestBidBanner["bid_amount"];
+                $bidderBannerInfo                                    = $userModel->selectIdWhere("id", $highestBidBanner["user_id"]);
+                $bannerAuctions[$auctionsIndex]['highestBidderName'] = $bidderBannerInfo["name"];
             } else {
-                $bannerAuctions[$auctionsIndex]['maxBid']        = "Aucune mise";
-                $bannerAuctions[$auctionsIndex]['maxBidderName'] = "Aucun(e)";
+                $bannerAuctions[$auctionsIndex]['highestBid']        = "Aucune mise";
+                $bannerAuctions[$auctionsIndex]['highestBidderName'] = "Aucun(e)";
             }
 
-            $bannerAuctions[$auctionsIndex]['timeLeft'] = $this->calculateTimeLeft($dateNowAuction, $bannerAuction["dateFinish"]);
+            $bannerAuctions[$auctionsIndex]['timeLeft'] = $this->calculateTimeLeft($dateNowAuction, $bannerAuction["finish_at"]);
 
             $stampImagesBanner = $imageModel->fetchAllById($bannerAuction['stamp_id'], "stamp_id");
             foreach ($stampImagesBanner as $image) {
@@ -164,10 +199,10 @@ class AuctionController
         ]);
     }
 
-    private function calculateTimeLeft($dateNow, $dateFinish)
+    private function calculateTimeLeft($dateNow, $finish_at)
     {
         $timestampNow    = strtotime($dateNow);
-        $timestampFinish = strtotime($dateFinish);
+        $timestampFinish = strtotime($finish_at);
 
         $timeLeft = $timestampFinish - $timestampNow;
 
